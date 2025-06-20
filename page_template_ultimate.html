@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قالب صفحة محسن - ملف إنجاز المعلمة</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            --accent-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --rose-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            --warning-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --text-color: #2d3748;
+            --sidebar-bg: rgba(255, 255, 255, 0.95);
+            --sidebar-text: #4a5568;
+            --hover-color: #667eea;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--primary-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            border-radius: 0 25px 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--secondary-gradient);
+            border-radius: 4px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: var(--secondary-gradient);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(255, 154, 158, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo h1 {
+            color: #2d3748;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .logo p {
+            color: #4a5568;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            background: var(--accent-gradient);
+            color: #2d3748;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(168, 237, 234, 0.3);
+        }
+
+        .nav-link i {
+            margin-left: 10px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            margin-right: 320px;
+            padding: 30px;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .page-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #4a5568;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* قسم عرض الملفات المرفوعة */
+        .files-display-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .files-display-section h2 {
+            font-size: 2rem;
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .file-card {
+            background: var(--accent-gradient);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(168, 237, 234, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(168, 237, 234, 0.4);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .file-icon {
+            font-size: 2.5rem;
+            margin-left: 15px;
+            color: #2d3748;
+        }
+
+        .file-details h3 {
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .file-details p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-gradient);
+            color: #2d3748;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .file-preview {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .file-preview img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #cbd5e0;
+        }
+
+        /* قسم رفع الملفات */
+        .upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .upload-section h2 {
+            font-size: 2rem;
+            background: var(--warning-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .upload-area {
+            border: 3px dashed #cbd5e0;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: var(--hover-color);
+            background: var(--accent-gradient);
+            transform: scale(1.02);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: #cbd5e0;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover i,
+        .upload-area.dragover i {
+            color: var(--hover-color);
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .upload-hint {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-progress {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        /* قسم الملاحظات */
+        .notes-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .notes-section h2 {
+            font-size: 2rem;
+            background: var(--rose-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .notes-textarea:focus {
+            outline: none;
+            border-color: var(--hover-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .save-notes-btn {
+            margin-top: 15px;
+            background: var(--success-gradient);
+            color: #2d3748;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-notes-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(132, 250, 176, 0.3);
+        }
+
+        /* Modal للمعاينة */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            height: 90%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .close {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 20px;
+            height: calc(100% - 80px);
+            overflow: auto;
+        }
+
+        .viewer-container {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Excel Viewer */
+        .excel-viewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        .excel-tabs {
+            display: flex;
+            background: #f7fafc;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 20px;
+            border-radius: 8px 8px 0 0;
+            overflow-x: auto;
+        }
+
+        .excel-tab {
+            padding: 12px 20px;
+            background: #e2e8f0;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .excel-tab.active {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .excel-tab:hover {
+            background: var(--accent-gradient);
+        }
+
+        .excel-sheet {
+            display: none;
+            overflow: auto;
+            height: calc(100% - 60px);
+        }
+
+        .excel-sheet.active {
+            display: block;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .excel-table th,
+        .excel-table td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: right;
+        }
+
+        .excel-table th {
+            background: var(--accent-gradient);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .excel-table tr:nth-child(even) {
+            background: rgba(168, 237, 234, 0.1);
+        }
+
+        /* Word Viewer */
+        .word-viewer {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            padding: 20px;
+            background: white;
+            line-height: 1.6;
+        }
+
+        /* PowerPoint Viewer */
+        .ppt-viewer {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .ppt-info {
+            background: var(--accent-gradient);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .ppt-info h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .ppt-info p {
+            color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .ppt-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-radius: 0;
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                height: 95%;
+                margin: 2.5% auto;
+            }
+
+            .file-actions {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { 
+                opacity: 0; 
+                transform: translateX(-30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--hover-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .message.success {
+            background: var(--success-gradient);
+            color: #2d3748;
+        }
+
+        .message.error {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+        }
+
+        .message.info {
+            background: var(--accent-gradient);
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar slide-in-right">
+            <div class="logo">
+                <h1><i class="fas fa-graduation-cap"></i> ملف إنجاز المعلمة</h1>
+                <p>منال بنت علي العيسى</p>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        الصفحة الرئيسية
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="intro.html" class="nav-link">
+                        <i class="fas fa-user-circle"></i>
+                        المقدمة
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="definition.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        تعريف ملف الانجاز والهدف منه
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="vision.html" class="nav-link">
+                        <i class="fas fa-eye"></i>
+                        الرؤية والرسالة
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="kingdom-vision.html" class="nav-link">
+                        <i class="fas fa-flag"></i>
+                        الاهداف رؤية المملكة
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="education-goals.html" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i>
+                        اهداف العامة للتعليم في المملكة
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="teacher-tasks.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        مهام المعلمة
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="cv.html" class="nav-link">
+                        <i class="fas fa-id-card"></i>
+                        السيرة الذاتية
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="ethics.html" class="nav-link">
+                        <i class="fas fa-handshake"></i>
+                        ميثاق اخلاقيات مهنة التعلم في المملكة
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="page-header fade-in-up">
+                <h1 id="page-title"><i class="fas fa-file-alt"></i> عنوان الصفحة</h1>
+                <p id="page-description">وصف الصفحة والمحتوى المطلوب</p>
+            </div>
+
+            <!-- قسم عرض الملفات المرفوعة -->
+            <section class="files-display-section fade-in-up">
+                <h2><i class="fas fa-folder-open"></i> الملفات والوثائق المرفوعة</h2>
+                <div id="files-container">
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>لا توجد ملفات مرفوعة بعد</h3>
+                        <p>قم برفع الملفات والوثائق الخاصة بهذا القسم لعرضها هنا</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم رفع الملفات -->
+            <section class="upload-section fade-in-up">
+                <h2><i class="fas fa-cloud-upload-alt"></i> رفع الملفات والوثائق</h2>
+                
+                <div class="upload-area" onclick="document.getElementById('file-input').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <div class="upload-text">انقر هنا لاختيار الملفات أو اسحبها إلى هذه المنطقة</div>
+                    <div class="upload-hint">يدعم: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, GIF (حد أقصى 2 ميجابايت لكل ملف)</div>
+                </div>
+
+                <input type="file" id="file-input" class="file-input" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif">
+
+                <div class="upload-progress" id="upload-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">جاري الرفع...</div>
+                </div>
+
+                <div id="upload-messages"></div>
+            </section>
+
+            <!-- قسم الملاحظات -->
+            <section class="notes-section fade-in-up">
+                <h2><i class="fas fa-sticky-note"></i> ملاحظات وتعليقات</h2>
+                <textarea id="notes-textarea" class="notes-textarea" placeholder="اكتب ملاحظاتك وتعليقاتك حول هذا القسم هنا..."></textarea>
+                <button class="save-notes-btn" onclick="saveNotes()">
+                    <i class="fas fa-save"></i> حفظ الملاحظات
+                </button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal للمعاينة -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">معاينة الملف</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- محتوى المعاينة سيتم إدراجه هنا -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // متغيرات عامة
+        let currentPageKey = '';
+        let uploadedFiles = [];
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحديد مفتاح الصفحة الحالية
+            currentPageKey = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
+            
+            // تحميل الملفات المحفوظة
+            loadSavedFiles();
+            
+            // تحميل الملاحظات المحفوظة
+            loadSavedNotes();
+            
+            // إعداد drag and drop
+            setupDragAndDrop();
+        });
+
+        // إعداد السحب والإفلات
+        function setupDragAndDrop() {
+            const uploadArea = document.querySelector('.upload-area');
+            
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+        }
+
+        // معالجة اختيار الملفات
+        document.getElementById('file-input').addEventListener('change', function(e) {
+            handleFiles(e.target.files);
+        });
+
+        // معالجة الملفات
+        function handleFiles(files) {
+            const maxSize = 2 * 1024 * 1024; // 2 ميجابايت
+            const allowedTypes = [
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'image/jpeg',
+                'image/jpg',
+                'image/png',
+                'image/gif'
+            ];
+
+            let validFiles = [];
+            let errors = [];
+
+            for (let file of files) {
+                if (file.size > maxSize) {
+                    errors.push(`الملف "${file.name}" كبير جداً (أكثر من 2 ميجابايت)`);
+                    continue;
+                }
+
+                if (!allowedTypes.includes(file.type)) {
+                    errors.push(`نوع الملف "${file.name}" غير مدعوم`);
+                    continue;
+                }
+
+                validFiles.push(file);
+            }
+
+            if (errors.length > 0) {
+                showMessage(errors.join('<br>'), 'error');
+            }
+
+            if (validFiles.length > 0) {
+                uploadFiles(validFiles);
+            }
+        }
+
+        // رفع الملفات
+        function uploadFiles(files) {
+            const progressContainer = document.getElementById('upload-progress');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            
+            progressContainer.style.display = 'block';
+            
+            let completed = 0;
+            const total = files.length;
+
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const fileData = {
+                        id: Date.now() + index,
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        data: e.target.result,
+                        uploadDate: new Date().toLocaleString('ar-SA')
+                    };
+
+                    // حفظ الملف
+                    saveFile(fileData);
+                    
+                    completed++;
+                    const progress = (completed / total) * 100;
+                    progressFill.style.width = progress + '%';
+                    progressText.textContent = `تم رفع ${completed} من ${total} ملف`;
+
+                    if (completed === total) {
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                            showMessage(`تم رفع ${total} ملف بنجاح!`, 'success');
+                            displayFiles();
+                        }, 1000);
+                    }
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // حفظ الملف
+        function saveFile(fileData) {
+            let savedFiles = JSON.parse(localStorage.getItem(`files_${currentPageKey}`) || '[]');
+            savedFiles.push(fileData);
+            localStorage.setItem(`files_${currentPageKey}`, JSON.stringify(savedFiles));
+            uploadedFiles = savedFiles;
+        }
+
+        // تحميل الملفات المحفوظة
+        function loadSavedFiles() {
+            uploadedFiles = JSON.parse(localStorage.getItem(`files_${currentPageKey}`) || '[]');
+            displayFiles();
+        }
+
+        // عرض الملفات
+        function displayFiles() {
+            const container = document.getElementById('files-container');
+            
+            if (uploadedFiles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>لا توجد ملفات مرفوعة بعد</h3>
+                        <p>قم برفع الملفات والوثائق الخاصة بهذا القسم لعرضها هنا</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const filesGrid = document.createElement('div');
+            filesGrid.className = 'files-grid';
+
+            uploadedFiles.forEach(file => {
+                const fileCard = createFileCard(file);
+                filesGrid.appendChild(fileCard);
+            });
+
+            container.innerHTML = '';
+            container.appendChild(filesGrid);
+        }
+
+        // إنشاء بطاقة ملف
+        function createFileCard(file) {
+            const card = document.createElement('div');
+            card.className = 'file-card fade-in-up';
+
+            const icon = getFileIcon(file.type);
+            const sizeText = formatFileSize(file.size);
+
+            card.innerHTML = `
+                <div class="file-info">
+                    <div class="file-icon">
+                        <i class="${icon}"></i>
+                    </div>
+                    <div class="file-details">
+                        <h3>${file.name}</h3>
+                        <p>${sizeText} • ${file.uploadDate}</p>
+                    </div>
+                </div>
+                ${file.type.startsWith('image/') ? `
+                    <div class="file-preview">
+                        <img src="${file.data}" alt="${file.name}">
+                    </div>
+                ` : ''}
+                <div class="file-actions">
+                    <button class="btn btn-primary" onclick="previewFile(${file.id})">
+                        <i class="fas fa-eye"></i> معاينة
+                    </button>
+                    <a href="${file.data}" download="${file.name}" class="btn btn-success">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                    <button class="btn btn-danger" onclick="deleteFile(${file.id})">
+                        <i class="fas fa-trash"></i> حذف
+                    </button>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // الحصول على أيقونة الملف
+        function getFileIcon(type) {
+            if (type.includes('pdf')) return 'fas fa-file-pdf';
+            if (type.includes('word')) return 'fas fa-file-word';
+            if (type.includes('excel') || type.includes('sheet')) return 'fas fa-file-excel';
+            if (type.includes('powerpoint') || type.includes('presentation')) return 'fas fa-file-powerpoint';
+            if (type.includes('image')) return 'fas fa-file-image';
+            return 'fas fa-file';
+        }
+
+        // تنسيق حجم الملف
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 بايت';
+            const k = 1024;
+            const sizes = ['بايت', 'كيلوبايت', 'ميجابايت'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // معاينة الملف
+        function previewFile(fileId) {
+            const file = uploadedFiles.find(f => f.id === fileId);
+            if (!file) return;
+
+            const modal = document.getElementById('preview-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+
+            modalTitle.textContent = file.name;
+            modal.style.display = 'block';
+
+            // تنظيف المحتوى السابق
+            modalBody.innerHTML = '<div style="text-align: center; padding: 40px;"><div class="loading-spinner"></div><p>جاري التحميل...</p></div>';
+
+            if (file.type === 'application/pdf') {
+                previewPDF(file, modalBody);
+            } else if (file.type.includes('excel') || file.type.includes('sheet')) {
+                previewExcel(file, modalBody);
+            } else if (file.type.includes('word')) {
+                previewWord(file, modalBody);
+            } else if (file.type.includes('powerpoint') || file.type.includes('presentation')) {
+                previewPowerPoint(file, modalBody);
+            } else if (file.type.startsWith('image/')) {
+                previewImage(file, modalBody);
+            } else {
+                modalBody.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #f56565; margin-bottom: 20px;"></i>
+                        <h3>لا يمكن معاينة هذا النوع من الملفات</h3>
+                        <p>يمكنك تحميل الملف لعرضه في البرنامج المناسب</p>
+                        <a href="${file.data}" download="${file.name}" class="btn btn-success" style="margin-top: 20px;">
+                            <i class="fas fa-download"></i> تحميل الملف
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // معاينة PDF
+        function previewPDF(file, container) {
+            container.innerHTML = `
+                <iframe src="${file.data}" class="viewer-container" type="application/pdf">
+                    <p>متصفحك لا يدعم عرض ملفات PDF. 
+                    <a href="${file.data}" download="${file.name}">انقر هنا لتحميل الملف</a></p>
+                </iframe>
+            `;
+        }
+
+        // معاينة Excel
+        function previewExcel(file, container) {
+            try {
+                // تحويل base64 إلى binary
+                const binaryString = atob(file.data.split(',')[1]);
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+
+                // قراءة الملف
+                const workbook = XLSX.read(bytes, { type: 'array' });
+                
+                let viewerHTML = '<div class="excel-viewer">';
+                
+                // إنشاء التبويبات
+                if (workbook.SheetNames.length > 1) {
+                    viewerHTML += '<div class="excel-tabs">';
+                    workbook.SheetNames.forEach((sheetName, index) => {
+                        viewerHTML += `<button class="excel-tab ${index === 0 ? 'active' : ''}" onclick="showExcelSheet(${index})">${sheetName}</button>`;
+                    });
+                    viewerHTML += '</div>';
+                }
+
+                // إنشاء الأوراق
+                workbook.SheetNames.forEach((sheetName, index) => {
+                    const worksheet = workbook.Sheets[sheetName];
+                    const htmlTable = XLSX.utils.sheet_to_html(worksheet, { 
+                        table: `<table class="excel-table">`,
+                        header: '<thead>',
+                        footer: '</thead><tbody>',
+                        editable: false
+                    }) + '</tbody></table>';
+                    
+                    viewerHTML += `<div class="excel-sheet ${index === 0 ? 'active' : ''}" id="excel-sheet-${index}">${htmlTable}</div>`;
+                });
+
+                viewerHTML += '</div>';
+                container.innerHTML = viewerHTML;
+
+            } catch (error) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #f56565; margin-bottom: 20px;"></i>
+                        <h3>خطأ في قراءة ملف Excel</h3>
+                        <p>حدث خطأ أثناء محاولة عرض الملف</p>
+                        <a href="${file.data}" download="${file.name}" class="btn btn-success" style="margin-top: 20px;">
+                            <i class="fas fa-download"></i> تحميل الملف
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // عرض ورقة Excel محددة
+        function showExcelSheet(index) {
+            // إخفاء جميع الأوراق
+            document.querySelectorAll('.excel-sheet').forEach(sheet => {
+                sheet.classList.remove('active');
+            });
+            
+            // إزالة التفعيل من جميع التبويبات
+            document.querySelectorAll('.excel-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // إظهار الورقة المحددة
+            document.getElementById(`excel-sheet-${index}`).classList.add('active');
+            document.querySelectorAll('.excel-tab')[index].classList.add('active');
+        }
+
+        // معاينة Word
+        function previewWord(file, container) {
+            try {
+                // تحويل base64 إلى array buffer
+                const binaryString = atob(file.data.split(',')[1]);
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+
+                mammoth.convertToHtml({ arrayBuffer: bytes.buffer })
+                    .then(function(result) {
+                        container.innerHTML = `<div class="word-viewer">${result.value}</div>`;
+                    })
+                    .catch(function(error) {
+                        container.innerHTML = `
+                            <div style="text-align: center; padding: 40px;">
+                                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #f56565; margin-bottom: 20px;"></i>
+                                <h3>خطأ في قراءة ملف Word</h3>
+                                <p>حدث خطأ أثناء محاولة عرض الملف</p>
+                                <a href="${file.data}" download="${file.name}" class="btn btn-success" style="margin-top: 20px;">
+                                    <i class="fas fa-download"></i> تحميل الملف
+                                </a>
+                            </div>
+                        `;
+                    });
+
+            } catch (error) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #f56565; margin-bottom: 20px;"></i>
+                        <h3>خطأ في قراءة ملف Word</h3>
+                        <p>حدث خطأ أثناء محاولة عرض الملف</p>
+                        <a href="${file.data}" download="${file.name}" class="btn btn-success" style="margin-top: 20px;">
+                            <i class="fas fa-download"></i> تحميل الملف
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // معاينة PowerPoint
+        function previewPowerPoint(file, container) {
+            container.innerHTML = `
+                <div class="ppt-viewer">
+                    <div class="ppt-info">
+                        <h3><i class="fas fa-file-powerpoint"></i> عرض PowerPoint</h3>
+                        <p>اسم الملف: <strong>${file.name}</strong></p>
+                        <p>حجم الملف: <strong>${formatFileSize(file.size)}</strong></p>
+                        <p>تاريخ الرفع: <strong>${file.uploadDate}</strong></p>
+                        <p>لعرض محتوى العرض التقديمي بالكامل، يرجى تحميل الملف وفتحه في برنامج PowerPoint أو أي برنامج متوافق.</p>
+                        
+                        <div class="ppt-actions">
+                            <a href="${file.data}" download="${file.name}" class="btn btn-success">
+                                <i class="fas fa-download"></i> تحميل الملف
+                            </a>
+                            <button class="btn btn-primary" onclick="window.open('${file.data}', '_blank')">
+                                <i class="fas fa-external-link-alt"></i> فتح في نافذة جديدة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // معاينة الصور
+        function previewImage(file, container) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <img src="${file.data}" alt="${file.name}" style="max-width: 100%; max-height: 70vh; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div style="margin-top: 20px;">
+                        <h3>${file.name}</h3>
+                        <p>${formatFileSize(file.size)} • ${file.uploadDate}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // حذف الملف
+        function deleteFile(fileId) {
+            if (confirm('هل أنت متأكد من حذف هذا الملف؟')) {
+                uploadedFiles = uploadedFiles.filter(f => f.id !== fileId);
+                localStorage.setItem(`files_${currentPageKey}`, JSON.stringify(uploadedFiles));
+                displayFiles();
+                showMessage('تم حذف الملف بنجاح', 'success');
+            }
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closeModal() {
+            document.getElementById('preview-modal').style.display = 'none';
+        }
+
+        // إغلاق النافذة عند النقر خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById('preview-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // حفظ الملاحظات
+        function saveNotes() {
+            const notes = document.getElementById('notes-textarea').value;
+            localStorage.setItem(`notes_${currentPageKey}`, notes);
+            showMessage('تم حفظ الملاحظات بنجاح', 'success');
+        }
+
+        // تحميل الملاحظات المحفوظة
+        function loadSavedNotes() {
+            const savedNotes = localStorage.getItem(`notes_${currentPageKey}`) || '';
+            document.getElementById('notes-textarea').value = savedNotes;
+        }
+
+        // عرض الرسائل
+        function showMessage(message, type) {
+            const messagesContainer = document.getElementById('upload-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = message;
+            
+            messagesContainer.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        // تحديث عنوان الصفحة ووصفها (يمكن استدعاؤها من الصفحات الفرعية)
+        function updatePageInfo(title, description) {
+            document.getElementById('page-title').innerHTML = title;
+            document.getElementById('page-description').textContent = description;
+            document.title = title + ' - ملف إنجاز المعلمة';
+        }
+    </script>
+</body>
+</html>
+
