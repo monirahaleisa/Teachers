@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملف إنجاز المعلمة - منال بنت علي العيسى</title>
+    <style>
+        :root {
+            --primary-color: #ccb6a0;
+            --secondary-color: #c8d4df;
+            --tertiary-color: #ceb59b;
+            --dark-color: #151c24;
+            --blue-light: #84a7c2;
+            --cream-color: #e4d4c5;
+            --brown-medium: #756d62;
+            --blue-medium: #357cb2;
+            --blue-bright: #529aca;
+            --brown-dark: #67503d;
+            --brown-light: #716048;
+            --cream-light: #e2ccb3;
+            --gray-color: #9fa09c;
+            --navy-color: #19466d;
+            --blue-gray: #476273;
+            --tan-color: #bb9c7b;
+            --brown-tan: #a18869;
+            --cream-warm: #f1e4cb;
+            --brown-warm: #b69478;
+            --sky-blue: #67a4d6;
+            --beige-color: #ecd1b2;
+            --text-color: #151c24;
+            --sidebar-bg: #f1e4cb;
+            --sidebar-text: #67503d;
+            --header-color: #c8d4df;
+            --accent-color: #357cb2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: var(--text-color);
+            background-image: url('roses_background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            z-index: -1;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: rgba(241, 228, 203, 0.95);
+            padding: 15px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 0 0 15px rgba(21, 28, 36, 0.2);
+            transition: width 0.3s ease;
+            min-width: 250px;
+            max-width: 500px;
+            resize: horizontal;
+            overflow-x: hidden;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .sidebar::-webkit-resizer {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .sidebar h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 15px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background-color: var(--tertiary-color);
+            color: var(--navy-color);
+            transform: translateX(-5px);
+        }
+
+        .nav-link.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .dropdown-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(204, 182, 160, 0.3);
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+
+        .dropdown-container.show {
+            max-height: 800px;
+            padding: 10px 0;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 8px 25px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 3px 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--cream-color);
+            color: var(--navy-color);
+        }
+
+        .dropdown-item.active {
+            background-color: var(--blue-medium);
+            color: white;
+        }
+
+        .dropdown-toggle {
+            position: relative;
+        }
+
+        .dropdown-toggle::after {
+            content: "▼";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .dropdown-toggle.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-right: 280px;
+            padding: 30px;
+            background-color: rgba(241, 228, 203, 0.8);
+            min-height: 100vh;
+            position: relative;
+            transition: margin-right 0.3s ease;
+            border-radius: 15px 0 0 15px;
+            box-shadow: inset 0 0 20px rgba(21, 28, 36, 0.1);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .page-header::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 15px auto;
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content-section h2 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-right: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .welcome-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* File Management Styles */
+        .file-section {
+            background: rgba(236, 209, 178, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(21, 28, 36, 0.15);
+            border: 2px solid var(--tertiary-color);
+        }
+
+        .file-section h3 {
+            color: var(--navy-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .uploaded-files {
+            margin-bottom: 30px;
+        }
+
+        .file-list {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .file-item {
+            background: rgba(200, 212, 223, 0.4);
+            border: 2px solid var(--blue-light);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(21, 28, 36, 0.2);
+            background: rgba(228, 212, 197, 0.6);
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: bold;
+            color: var(--navy-color);
+            margin-bottom: 5px;
+        }
+
+        .file-details {
+            font-size: 0.9rem;
+            color: var(--brown-dark);
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .file-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .preview-btn {
+            background-color: var(--blue-bright);
+            color: white;
+        }
+
+        .download-btn {
+            background-color: var(--sky-blue);
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: var(--brown-warm);
+            color: white;
+        }
+
+        .file-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(21, 28, 36, 0.3);
+        }
+
+        .upload-area {
+            border: 3px dashed var(--secondary-color);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(248, 215, 232, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent-color);
+            background: rgba(248, 215, 232, 0.2);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--accent-color);
+            background: rgba(248, 215, 232, 0.3);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--accent-color);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .notes-section {
+            background: rgba(236, 209, 178, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(21, 28, 36, 0.15);
+            border: 2px solid var(--tertiary-color);
+        }
+
+        .notes-textarea {
+            width: 100%;
+            min-height: 150px;
+            border: 2px solid var(--blue-light);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            background: rgba(241, 228, 203, 0.5);
+        }
+
+        .notes-textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(241, 228, 203, 0.8);
+        }
+
+        /* Storage Management Styles */
+        .storage-section {
+            background: rgba(200, 212, 223, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(21, 28, 36, 0.15);
+            border: 2px solid var(--blue-light);
+        }
+
+        .storage-section h3 {
+            color: var(--navy-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .storage-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .storage-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, var(--blue-bright), var(--sky-blue));
+            color: white;
+        }
+
+        .import-btn {
+            background: linear-gradient(135deg, var(--blue-medium), var(--blue-gray));
+            color: white;
+        }
+
+        .backup-btn {
+            background: linear-gradient(135deg, var(--tan-color), var(--brown-tan));
+            color: white;
+        }
+
+        .clear-btn {
+            background: linear-gradient(135deg, var(--brown-warm), var(--brown-dark));
+            color: white;
+        }
+
+        .storage-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(21, 28, 36, 0.3);
+        }
+
+        .storage-info {
+            background: rgba(228, 212, 197, 0.6);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid var(--tertiary-color);
+        }
+
+        .storage-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .storage-bar {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(21, 28, 36, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .storage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue-bright), var(--sky-blue));
+            transition: width 0.3s ease;
+        }
+
+        .hidden-input {
+            display: none;
+        }
+
+        .preview-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .preview-content {
+            position: relative;
+            margin: 2% auto;
+            width: 90%;
+            height: 90%;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .preview-header {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-preview {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .preview-body {
+            height: calc(100% - 60px);
+            overflow: auto;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 250px;
+            }
+            
+            .main-content {
+                margin-right: 250px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar" id="sidebar">
+            <h2>ملف إنجاز المعلمة<br>منال بنت علي العيسى</h2>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <span class="nav-link active" onclick="loadContent('home')">الصفحة الرئيسية</span>
+                </li>
+
+                <!-- السيرة الذاتية للمعلمة -->
+                <li class="nav-item">
+                    <span class="nav-link" onclick="loadContent('teacher_cv')">السيرة الذاتية للمعلمة</span>
+                </li>
+
+                <!-- 1. أداء الواجبات الوظيفية -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">أداء الواجبات الوظيفية</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('attendance_record')">سجل الدوام الرسمي</span>
+                        <span class="dropdown-item" onclick="loadContent('supervision_record')">سجل المناوبة والإشراف اليومي</span>
+                        <span class="dropdown-item" onclick="loadContent('waiting_record')">سجل الانتظار</span>
+                        <span class="dropdown-item" onclick="loadContent('curriculum_plan')">خطة توزيع المنهج</span>
+                        <span class="dropdown-item" onclick="loadContent('national_events')">نماذج من المشاركة بالمناسبات الوطنية</span>
+                    </div>
+                </li>
+
+                <!-- 2. التفاعل مع المجتمع المهني -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">التفاعل مع المجتمع المهني</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('learning_communities')">سجل مجتمعات التعلم المهنية</span>
+                        <span class="dropdown-item" onclick="loadContent('visit_exchange')">سجل تبادل الزيارات</span>
+                        <span class="dropdown-item" onclick="loadContent('demo_lesson')">تقرير تنفيذ درس تطبيقي</span>
+                        <span class="dropdown-item" onclick="loadContent('training_certificates')">شهادات حضور الدورات والورش التدريبية</span>
+                        <span class="dropdown-item" onclick="loadContent('teacher_portfolio')">ملف إنجاز المعلمة</span>
+                        <span class="dropdown-item" onclick="loadContent('fares_system')">نظام فارس (سجل التطوير المهني)</span>
+                        <span class="dropdown-item" onclick="loadContent('self_reflection')">التأمل الذاتي للمعلمة</span>
+                    </div>
+                </li>
+
+                <!-- 3. التفاعل مع أولياء الأمور -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">التفاعل مع أولياء الأمور</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('general_assembly')">صور من الجمعية العمومية لأولياء الأمور والمعلمات</span>
+                        <span class="dropdown-item" onclick="loadContent('parent_meetings')">تقرير اجتماع ولي الأمر مع المعلمات</span>
+                        <span class="dropdown-item" onclick="loadContent('weekly_plan')">نسخة من الخطة الأسبوعية للمدرسة</span>
+                        <span class="dropdown-item" onclick="loadContent('madrasati_reports')">تقارير منصة مدرستي عن مستويات الطالبات</span>
+                    </div>
+                </li>
+
+                <!-- 4. التنويع في استراتيجيات التدريس -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">التنويع في استراتيجيات التدريس</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('strategy_report')">تقرير عن تطبيق استراتيجية</span>
+                        <span class="dropdown-item" onclick="loadContent('lesson_preparation')">نموذج من إعداد الدروس</span>
+                        <span class="dropdown-item" onclick="loadContent('teaching_portfolio')">ملف إنجاز المعلمة</span>
+                    </div>
+                </li>
+
+                <!-- 5. تحسين نتائج المتعلمين -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">تحسين نتائج المتعلمين</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('remedial_plan')">الخطة العلاجية</span>
+                        <span class="dropdown-item" onclick="loadContent('test_results')">نتائج الاختبار القبلي والبعدي</span>
+                        <span class="dropdown-item" onclick="loadContent('student_tracking')">كشف متابعة الطالبات</span>
+                        <span class="dropdown-item" onclick="loadContent('certificates')">شهادات تحفيزية للطالبات</span>
+                        <span class="dropdown-item" onclick="loadContent('enrichment_programs')">نماذج من البرامج الإثرائية</span>
+                        <span class="dropdown-item" onclick="loadContent('feedback')">نماذج من التغذية الراجعة الكتابية والإلكترونية</span>
+                    </div>
+                </li>
+
+                <!-- 6. إعداد وتنفيذ خطة التعلم -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">إعداد وتنفيذ خطة التعلم</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('curriculum_distribution')">خطة توزيع المنهج</span>
+                        <span class="dropdown-item" onclick="loadContent('lesson_samples')">نموذج من إعداد الدروس</span>
+                        <span class="dropdown-item" onclick="loadContent('assignments_tests')">نماذج من الواجبات والاختبارات</span>
+                    </div>
+                </li>
+
+                <!-- 7. توظيف تقنيات ووسائل التعلم المناسبة -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">توظيف تقنيات ووسائل التعلم المناسبة</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('teaching_aids')">صور من الوسائل التعليمية المستخدمة</span>
+                        <span class="dropdown-item" onclick="loadContent('platform_activation')">تفعيل المنصة التعليمية</span>
+                        <span class="dropdown-item" onclick="loadContent('tech_program_report')">تقرير عن برنامج تقني تم استخدامه</span>
+                        <span class="dropdown-item" onclick="loadContent('active_learning')">تقرير عن استراتيجيات تدريس تركز على الطالب (التعلم النشط)</span>
+                    </div>
+                </li>
+
+                <!-- 8. تهيئة البيئة التعليمية -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">تهيئة البيئة التعليمية</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('learning_styles')">تقرير تصنيف الطالبات وفق أنماط التعلم</span>
+                        <span class="dropdown-item" onclick="loadContent('improvement_tools')">تقرير عن الأدوات المستخدمة لتحسين البيئة التعليمية</span>
+                        <span class="dropdown-item" onclick="loadContent('classroom_models')">نماذج للبيئة الصفية للطالبات</span>
+                    </div>
+                </li>
+
+                <!-- 9. الإدارة الصفية -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">الإدارة الصفية</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('tracking_sheet')">كشف المتابعة</span>
+                        <span class="dropdown-item" onclick="loadContent('classroom_management')">تطبيق الإدارة الصفية</span>
+                    </div>
+                </li>
+
+                <!-- 10. تحليل نتائج المتعلمين وتشخيص مستوياتهم -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">تحليل نتائج المتعلمين وتشخيص مستوياتهم</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('student_analysis')">تقرير تحليل نتائج الطالبات</span>
+                        <span class="dropdown-item" onclick="loadContent('remedial_report')">تقرير الخطة العلاجية</span>
+                        <span class="dropdown-item" onclick="loadContent('learning_loss')">سجل معالجة الفاقد التعليمي</span>
+                        <span class="dropdown-item" onclick="loadContent('analysis_portfolio')">ملف إنجاز المعلمة</span>
+                    </div>
+                </li>
+
+                <!-- 11. تنويع أساليب التقويم -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(this)">تنويع أساليب التقويم</a>
+                    <div class="dropdown-container">
+                        <span class="dropdown-item" onclick="loadContent('test_samples')">نماذج من الاختبارات</span>
+                        <span class="dropdown-item" onclick="loadContent('student_portfolios')">نماذج من ملفات إنجاز الطالبات</span>
+                        <span class="dropdown-item" onclick="loadContent('performance_tasks')">نماذج من المهام الأدائية والمشاريع</span>
+                        <span class="dropdown-item" onclick="loadContent('alternative_assessment')">نماذج من أساليب التقويم البديل (الملاحظة الصفية، الاستبانات، التقارير)</span>
+                        <span class="dropdown-item" onclick="loadContent('results_analysis')">تحليل النتائج</span>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content" id="mainContent">
+            <div class="welcome-section">
+                <h1>مرحباً بك في ملف إنجاز المعلمة</h1>
+            </div>
+            
+            <div class="content" id="main-content">
+                <div class="content-section">
+                    <h2>المقدمة</h2>
+                    <p>بسم الله الرحمن الرحيم، والصلاة والسلام على أشرف الأنبياء والمرسلين، نبينا محمد وعلى آله وصحبه أجمعين.</p>
+                    
+                    <p>يسرني أن أقدم لكم ملف إنجازي كمعلمة في مجال التعليم، والذي يعكس مسيرتي المهنية والأكاديمية وإنجازاتي التعليمية. يأتي هذا الملف كتوثيق شامل لخبراتي وتطوري المهني في مجال التعليم.</p>
+                    
+                    <h3>يهدف هذا الملف إلى:</h3>
+                    <ul>
+                        <li>توثيق مسيرتي التعليمية والمهنية</li>
+                        <li>عرض إنجازاتي وخبراتي في مجال التدريس</li>
+                        <li>تقديم نموذج للتطور المهني المستمر</li>
+                        <li>المساهمة في تحقيق رؤية المملكة 2030 في مجال التعليم</li>
+                    </ul>
+                    
+                    <p>أسأل الله التوفيق والسداد، وأن يجعل هذا العمل خالصاً لوجهه الكريم، وأن ينفع به كل من يطلع عليه.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- نافذة المعاينة -->
+    <div class="preview-modal" id="previewModal">
+        <div class="preview-content">
+            <div class="preview-header">
+                <h3 id="previewTitle">معاينة الملف</h3>
+                <button class="close-preview" onclick="closePreview()">&times;</button>
+            </div>
+            <div class="preview-body" id="previewBody">
+                <!-- محتوى المعاينة -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات المحتوى
+        const contentData = {
+            'home': {
+                title: 'مرحباً بك في ملف إنجاز المعلمة',
+                content: `
+                    <div class="content-section">
+                        <h2>المقدمة</h2>
+                        <p>بسم الله الرحمن الرحيم، والصلاة والسلام على أشرف الأنبياء والمرسلين، نبينا محمد وعلى آله وصحبه أجمعين.</p>
+                        
+                        <p>يسرني أن أقدم لكم ملف إنجازي كمعلمة في مجال التعليم، والذي يعكس مسيرتي المهنية والأكاديمية وإنجازاتي التعليمية. يأتي هذا الملف كتوثيق شامل لخبراتي وتطوري المهني في مجال التعليم.</p>
+                        
+                        <h3>يهدف هذا الملف إلى:</h3>
+                        <ul>
+                            <li>توثيق مسيرتي التعليمية والمهنية</li>
+                            <li>عرض إنجازاتي وخبراتي في مجال التدريس</li>
+                            <li>تقديم نموذج للتطور المهني المستمر</li>
+                            <li>المساهمة في تحقيق رؤية المملكة 2030 في مجال التعليم</li>
+                        </ul>
+                        
+                        <p>أسأل الله التوفيق والسداد، وأن يجعل هذا العمل خالصاً لوجهه الكريم، وأن ينفع به كل من يطلع عليه.</p>
+                    </div>
+                `,
+                showFiles: false
+            },
+            'teacher_cv': {
+                title: 'السيرة الذاتية للمعلمة',
+                content: `
+                    <div class="content-section">
+                        <h2>السيرة الذاتية</h2>
+                        
+                        <h3>البيانات الشخصية</h3>
+                        <p><strong>الاسم:</strong> منال بنت علي العيسى</p>
+                        <p><strong>الجنسية:</strong> سعودية</p>
+                        <p><strong>البريد الإلكتروني:</strong> manal.aleisa@example.com</p>
+                        <p><strong>التخصص:</strong> تعليم اللغة العربية</p>
+                        
+                        <h3>المؤهلات العلمية</h3>
+                        
+                        <h4>بكالوريوس في اللغة العربية وآدابها</h4>
+                        <p><strong>2010 - 2014</strong><br>
+                        جامعة الملك سعود - الرياض<br>
+                        <strong>التقدير:</strong> ممتاز مع مرتبة الشرف</p>
+                        
+                        <h4>دبلوم عالي في التربية</h4>
+                        <p><strong>2014 - 2015</strong><br>
+                        كلية التربية - جامعة الملك سعود<br>
+                        <strong>التقدير:</strong> ممتاز</p>
+                        
+                        <h4>ماجستير في المناهج وطرق التدريس</h4>
+                        <p><strong>2016 - 2018</strong><br>
+                        جامعة الإمام محمد بن سعود الإسلامية<br>
+                        <strong>عنوان الرسالة:</strong> "فاعلية استراتيجية التعلم التعاوني في تنمية مهارات القراءة الناقدة لدى طالبات المرحلة الثانوية"</p>
+                        
+                        <h3>الخبرات العملية</h3>
+                        
+                        <h4>معلمة لغة عربية</h4>
+                        <p><strong>2015 - 2018</strong><br>
+                        مدرسة الثانوية الخامسة والعشرون - الرياض</p>
+                        
+                        <h4>معلمة لغة عربية</h4>
+                        <p><strong>2018 - حتى الآن</strong><br>
+                        مدرسة الثانوية الثالثة - الرياض</p>
+                        
+                        <h4>منسقة النشاط الثقافي</h4>
+                        <p><strong>2019 - 2021</strong><br>
+                        مدرسة الثانوية الثالثة - الرياض</p>
+                        
+                        <h4>رائدة النشاط الطلابي</h4>
+                        <p><strong>2021 - حتى الآن</strong><br>
+                        مدرسة الثانوية الثالثة - الرياض</p>
+                        
+                        <h3>الدورات التدريبية</h3>
+                        
+                        <h4>استراتيجيات التعلم النشط</h4>
+                        <p><strong>2016</strong><br>
+                        مركز التدريب التربوي - إدارة التعليم بالرياض<br>
+                        <strong>مدة الدورة:</strong> 20 ساعة تدريبية</p>
+                        
+                        <h4>مهارات التقويم الحديثة</h4>
+                        <p><strong>2017</strong><br>
+                        المركز الوطني للتطوير المهني التعليمي<br>
+                        <strong>مدة الدورة:</strong> 15 ساعة تدريبية</p>
+                        
+                        <h4>توظيف التقنية في التعليم</h4>
+                        <p><strong>2018</strong><br>
+                        مركز التدريب التربوي - إدارة التعليم بالرياض<br>
+                        <strong>مدة الدورة:</strong> 25 ساعة تدريبية</p>
+                        
+                        <h4>مهارات القرن الحادي والعشرين</h4>
+                        <p><strong>2019</strong><br>
+                        المركز الوطني للتطوير المهني التعليمي<br>
+                        <strong>مدة الدورة:</strong> 30 ساعة تدريبية</p>
+                        
+                        <h4>التعليم المتمايز</h4>
+                        <p><strong>2020</strong><br>
+                        مركز التدريب التربوي - إدارة التعليم بالرياض<br>
+                        <strong>مدة الدورة:</strong> 20 ساعة تدريبية</p>
+                        
+                        <h4>التعليم عن بعد</h4>
+                        <p><strong>2020</strong><br>
+                        منصة مدرستي<br>
+                        <strong>مدة الدورة:</strong> 15 ساعة تدريبية</p>
+                        
+                        <h4>القيادة التربوية</h4>
+                        <p><strong>2021</strong><br>
+                        المركز الوطني للتطوير المهني التعليمي<br>
+                        <strong>مدة الدورة:</strong> 25 ساعة تدريبية</p>
+                        
+                        <h3>المهارات</h3>
+                        <ul>
+                            <li>إتقان استراتيجيات التدريس الحديثة</li>
+                            <li>مهارات التقويم المتنوعة</li>
+                            <li>توظيف التقنية في التعليم</li>
+                            <li>إدارة الصف الدراسي</li>
+                            <li>التخطيط للدروس</li>
+                            <li>تصميم الأنشطة التعليمية</li>
+                            <li>مهارات التواصل الفعال</li>
+                            <li>العمل ضمن فريق</li>
+                            <li>حل المشكلات واتخاذ القرارات</li>
+                            <li>إجادة استخدام الحاسب الآلي وبرامج الأوفيس</li>
+                            <li>إجادة استخدام منصات التعليم الإلكتروني</li>
+                        </ul>
+                        
+                        <h3>الإنجازات</h3>
+                        <ul>
+                            <li>الحصول على جائزة المعلمة المتميزة على مستوى المدرسة لعام 2018</li>
+                            <li>الحصول على جائزة المعلمة المتميزة على مستوى إدارة التعليم لعام 2020</li>
+                            <li>المشاركة في تأليف دليل المعلم لمادة اللغة العربية للصف الثاني الثانوي</li>
+                            <li>تنفيذ مبادرة "اقرأ وارتقِ" لتعزيز مهارات القراءة لدى الطالبات</li>
+                            <li>تنفيذ برنامج "لغتي هويتي" لتعزيز الاعتزاز باللغة العربية</li>
+                            <li>المشاركة في تحكيم مسابقة الإلقاء الشعري على مستوى إدارة التعليم</li>
+                            <li>تدريب أكثر من 50 معلمة على استراتيجيات التعلم النشط</li>
+                            <li>نشر مقالات تربوية في مجلة المعرفة</li>
+                        </ul>
+                    </div>
+                `,
+                showFiles: false
+            }
+        };
+
+        // إضافة محتوى افتراضي لجميع الأقسام الفرعية
+        const sections = [
+            // أداء الواجبات الوظيفية
+            { key: 'attendance_record', title: 'سجل الدوام الرسمي' },
+            { key: 'supervision_record', title: 'سجل المناوبة والإشراف اليومي' },
+            { key: 'waiting_record', title: 'سجل الانتظار' },
+            { key: 'curriculum_plan', title: 'خطة توزيع المنهج' },
+            { key: 'national_events', title: 'نماذج من المشاركة بالمناسبات الوطنية' },
+            
+            // التفاعل مع المجتمع المهني
+            { key: 'learning_communities', title: 'سجل مجتمعات التعلم المهنية' },
+            { key: 'visit_exchange', title: 'سجل تبادل الزيارات' },
+            { key: 'demo_lesson', title: 'تقرير تنفيذ درس تطبيقي' },
+            { key: 'training_certificates', title: 'شهادات حضور الدورات والورش التدريبية' },
+            { key: 'teacher_portfolio', title: 'ملف إنجاز المعلمة' },
+            { key: 'fares_system', title: 'نظام فارس (سجل التطوير المهني)' },
+            { key: 'self_reflection', title: 'التأمل الذاتي للمعلمة' },
+            
+            // التفاعل مع أولياء الأمور
+            { key: 'general_assembly', title: 'صور من الجمعية العمومية لأولياء الأمور والمعلمات' },
+            { key: 'parent_meetings', title: 'تقرير اجتماع ولي الأمر مع المعلمات' },
+            { key: 'weekly_plan', title: 'نسخة من الخطة الأسبوعية للمدرسة' },
+            { key: 'madrasati_reports', title: 'تقارير منصة مدرستي عن مستويات الطالبات' },
+            
+            // التنويع في استراتيجيات التدريس
+            { key: 'strategy_report', title: 'تقرير عن تطبيق استراتيجية' },
+            { key: 'lesson_preparation', title: 'نموذج من إعداد الدروس' },
+            { key: 'teaching_portfolio', title: 'ملف إنجاز المعلمة' },
+            
+            // تحسين نتائج المتعلمين
+            { key: 'remedial_plan', title: 'الخطة العلاجية' },
+            { key: 'test_results', title: 'نتائج الاختبار القبلي والبعدي' },
+            { key: 'student_tracking', title: 'كشف متابعة الطالبات' },
+            { key: 'certificates', title: 'شهادات تحفيزية للطالبات' },
+            { key: 'enrichment_programs', title: 'نماذج من البرامج الإثرائية' },
+            { key: 'feedback', title: 'نماذج من التغذية الراجعة الكتابية والإلكترونية' },
+            
+            // إعداد وتنفيذ خطة التعلم
+            { key: 'curriculum_distribution', title: 'خطة توزيع المنهج' },
+            { key: 'lesson_samples', title: 'نموذج من إعداد الدروس' },
+            { key: 'assignments_tests', title: 'نماذج من الواجبات والاختبارات' },
+            
+            // توظيف تقنيات ووسائل التعلم المناسبة
+            { key: 'teaching_aids', title: 'صور من الوسائل التعليمية المستخدمة' },
+            { key: 'platform_activation', title: 'تفعيل المنصة التعليمية' },
+            { key: 'tech_program_report', title: 'تقرير عن برنامج تقني تم استخدامه' },
+            { key: 'active_learning', title: 'تقرير عن استراتيجيات تدريس تركز على الطالب (التعلم النشط)' },
+            
+            // تهيئة البيئة التعليمية
+            { key: 'learning_styles', title: 'تقرير تصنيف الطالبات وفق أنماط التعلم' },
+            { key: 'improvement_tools', title: 'تقرير عن الأدوات المستخدمة لتحسين البيئة التعليمية' },
+            { key: 'classroom_models', title: 'نماذج للبيئة الصفية للطالبات' },
+            
+            // الإدارة الصفية
+            { key: 'tracking_sheet', title: 'كشف المتابعة' },
+            { key: 'classroom_management', title: 'تطبيق الإدارة الصفية' },
+            
+            // تحليل نتائج المتعلمين وتشخيص مستوياتهم
+            { key: 'student_analysis', title: 'تقرير تحليل نتائج الطالبات' },
+            { key: 'remedial_report', title: 'تقرير الخطة العلاجية' },
+            { key: 'learning_loss', title: 'سجل معالجة الفاقد التعليمي' },
+            { key: 'analysis_portfolio', title: 'ملف إنجاز المعلمة' },
+            
+            // تنويع أساليب التقويم
+            { key: 'test_samples', title: 'نماذج من الاختبارات' },
+            { key: 'student_portfolios', title: 'نماذج من ملفات إنجاز الطالبات' },
+            { key: 'performance_tasks', title: 'نماذج من المهام الأدائية والمشاريع' },
+            { key: 'alternative_assessment', title: 'نماذج من أساليب التقويم البديل (الملاحظة الصفية، الاستبانات، التقارير)' },
+            { key: 'results_analysis', title: 'تحليل النتائج' }
+        ];
+
+        // إضافة محتوى افتراضي لكل قسم
+        sections.forEach(section => {
+            contentData[section.key] = {
+                title: section.title,
+                content: `
+                    <div class="content-section">
+                        <h2>${section.title}</h2>
+                        <p>يحتوي هذا القسم على المستندات والملفات المتعلقة بـ ${section.title}.</p>
+                        <p>يمكنك رفع الملفات المناسبة لهذا القسم باستخدام منطقة رفع الملفات أدناه، ومعاينة الملفات المرفوعة في قسم الملفات المرفوعة.</p>
+                    </div>
+                `,
+                showFiles: true
+            };
+        });
+
+        // متغيرات عامة
+        let uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+        let currentSection = 'home';
+
+        // تحديث هامش المحتوى عند تغيير حجم القائمة
+        function updateMainContentMargin() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarWidth = sidebar.offsetWidth;
+            mainContent.style.marginRight = sidebarWidth + 'px';
+        }
+
+        // مراقبة تغيير حجم القائمة
+        const resizeObserver = new ResizeObserver(entries => {
+            updateMainContentMargin();
+        });
+
+        // تحميل المحتوى
+        function loadContent(contentKey) {
+            const mainContent = document.getElementById('main-content');
+            const data = contentData[contentKey] || {
+                title: 'قسم جديد',
+                content: `
+                    <div class="content-section">
+                        <h2>قسم جديد</h2>
+                        <p>هذا قسم جديد في ملف الإنجاز. يمكنك إضافة المحتوى والملفات المناسبة لهذا القسم.</p>
+                        <p>استخدم قسم رفع الملفات أدناه لإضافة المستندات والملفات المطلوبة.</p>
+                    </div>
+                `,
+                showFiles: true
+            };
+            
+            document.querySelector('.welcome-section h1').textContent = data.title;
+            
+            let contentHTML = data.content;
+            
+            // إضافة أقسام الملفات إذا كان مطلوباً
+            if (data.showFiles) {
+                contentHTML += `
+                    <!-- قسم الملفات المرفوعة -->
+                    <div class="file-section">
+                        <h3>📁 الملفات المرفوعة</h3>
+                        <div class="uploaded-files">
+                            <div class="file-list" id="fileList">
+                                <p style="text-align: center; color: #666;">لا توجد ملفات مرفوعة حتى الآن</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- قسم رفع الملفات -->
+                    <div class="file-section">
+                        <h3>📁 منطقة رفع الملفات</h3>
+                        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                            <div class="upload-icon">📁</div>
+                            <div class="upload-text">اسحب الملفات هنا أو انقر للاختيار</div>
+                            <div class="upload-text" style="font-size: 0.9rem; color: #666;">الحد الأقصى: 10 ميجابايت لكل ملف</div>
+                            <input type="file" id="fileInput" class="file-input" multiple accept="*/*">
+                            <button class="upload-btn">اختيار الملفات</button>
+                        </div>
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+
+                    <!-- قسم الملاحظات -->
+                    <div class="notes-section">
+                        <h3>📝 الملاحظات</h3>
+                        <textarea class="notes-textarea" id="notesTextarea" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+                    </div>
+
+                    <!-- قسم إدارة التخزين -->
+                    <div class="storage-section">
+                        <h3>💾 إدارة التخزين</h3>
+                        <div class="storage-controls">
+                            <button class="storage-btn export-btn" onclick="exportAllFiles()">
+                                📤 تصدير جميع الملفات
+                            </button>
+                            <button class="storage-btn import-btn" onclick="importFiles()">
+                                📥 استيراد الملفات
+                            </button>
+                            <button class="storage-btn backup-btn" onclick="createBackup()">
+                                💾 نسخة احتياطية
+                            </button>
+                            <button class="storage-btn clear-btn" onclick="clearAllData()">
+                                🗑️ مسح جميع البيانات
+                            </button>
+                        </div>
+                        
+                        <div class="storage-info" id="storageInfo">
+                            <div class="storage-stats">
+                                <span>عدد الملفات: <strong id="fileCount">0</strong></span>
+                                <span>الحجم الإجمالي: <strong id="totalSize">0 بايت</strong></span>
+                            </div>
+                            <div class="storage-stats">
+                                <span>مساحة التخزين المستخدمة: <strong id="storageUsed">0 بايت</strong></span>
+                            </div>
+                            <div class="storage-bar">
+                                <div class="storage-fill" id="storageFill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <input type="file" id="importInput" class="hidden-input" accept=".json" onchange="handleImport(event)">
+                    </div>
+                `;
+            }
+            
+            mainContent.innerHTML = contentHTML;
+            currentSection = contentKey;
+            
+            // تحديث الرابط النشط
+            document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // البحث عن العنصر المناسب وتفعيله
+            const activeElement = document.querySelector(`[onclick="loadContent('${contentKey}')"]`);
+            if (activeElement) {
+                activeElement.classList.add('active');
+            }
+            
+            // تحديث عرض الملفات والملاحظات إذا كانت موجودة
+            if (data.showFiles) {
+                // تأكد من تحميل الملفات المحفوظة
+                const savedFiles = localStorage.getItem('uploadedFiles');
+                if (savedFiles) {
+                    uploadedFiles = JSON.parse(savedFiles);
+                }
+                displayFiles();
+                loadNotes();
+                setupFileHandlers();
+            }
+        }
+
+        // تبديل القائمة المنسدلة
+        function toggleDropdown(element) {
+            const dropdownContainer = element.nextElementSibling;
+            const isOpen = dropdownContainer.classList.contains('show');
+            
+            // إغلاق جميع القوائم المنسدلة
+            document.querySelectorAll('.dropdown-container').forEach(container => {
+                container.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.classList.remove('open');
+            });
+            
+            // فتح القائمة المحددة إذا لم تكن مفتوحة
+            if (!isOpen) {
+                dropdownContainer.classList.add('show');
+                element.classList.add('open');
+            }
+        }
+
+        // إدارة الملفات
+        function displayFiles() {
+            const fileList = document.getElementById('fileList');
+            if (!fileList) return;
+            
+            const sectionFiles = uploadedFiles.filter(file => file.section === currentSection);
+            
+            if (sectionFiles.length === 0) {
+                fileList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد ملفات مرفوعة حتى الآن</p>';
+                return;
+            }
+            
+            fileList.innerHTML = sectionFiles.map(file => `
+                <div class="file-item">
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-details">
+                            الحجم: ${formatFileSize(file.size)} | 
+                            النوع: ${file.type || 'غير محدد'} | 
+                            تاريخ الرفع: ${new Date(file.uploadDate).toLocaleDateString('ar-SA')}
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <button class="file-btn preview-btn" onclick="previewFile('${file.id}')">معاينة</button>
+                        <button class="file-btn download-btn" onclick="downloadFile('${file.id}')">تحميل</button>
+                        <button class="file-btn delete-btn" onclick="deleteFile('${file.id}')">حذف</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 بايت';
+            const k = 1024;
+            const sizes = ['بايت', 'كيلوبايت', 'ميجابايت', 'جيجابايت'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function previewFile(fileId) {
+            const file = uploadedFiles.find(f => f.id === fileId);
+            if (!file) return;
+            
+            const modal = document.getElementById('previewModal');
+            const title = document.getElementById('previewTitle');
+            const body = document.getElementById('previewBody');
+            
+            title.textContent = `معاينة: ${file.name}`;
+            
+            // تحديد نوع الملف وعرضه
+            const fileType = file.type.toLowerCase();
+            
+            if (fileType.includes('image')) {
+                body.innerHTML = `<img src="${file.data}" style="max-width: 100%; height: auto;" alt="${file.name}">`;
+            } else if (fileType.includes('pdf')) {
+                body.innerHTML = `<iframe src="${file.data}" style="width: 100%; height: 500px;" frameborder="0"></iframe>`;
+            } else if (fileType.includes('text')) {
+                fetch(file.data)
+                    .then(response => response.text())
+                    .then(text => {
+                        body.innerHTML = `<pre style="white-space: pre-wrap; font-family: Arial;">${text}</pre>`;
+                    });
+            } else {
+                body.innerHTML = `
+                    <div style="text-align: center; padding: 50px;">
+                        <h3>لا يمكن معاينة هذا النوع من الملفات</h3>
+                        <p>نوع الملف: ${file.type}</p>
+                        <p>الحجم: ${formatFileSize(file.size)}</p>
+                        <button class="upload-btn" onclick="downloadFile('${file.id}')">تحميل الملف</button>
+                    </div>
+                `;
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function downloadFile(fileId) {
+            const file = uploadedFiles.find(f => f.id === fileId);
+            if (!file) return;
+            
+            const link = document.createElement('a');
+            link.href = file.data;
+            link.download = file.name;
+            link.click();
+        }
+
+        function deleteFile(fileId) {
+            if (confirm('هل أنت متأكد من حذف هذا الملف؟')) {
+                uploadedFiles = uploadedFiles.filter(f => f.id !== fileId);
+                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+                displayFiles();
+            }
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+
+        // إدارة الملاحظات
+        function loadNotes() {
+            const notesTextarea = document.getElementById('notesTextarea');
+            if (!notesTextarea) return;
+            
+            const savedNotes = localStorage.getItem(`notes_${currentSection}`);
+            if (savedNotes) {
+                notesTextarea.value = savedNotes;
+            } else {
+                notesTextarea.value = '';
+            }
+        }
+
+        function saveNotes() {
+            const notesTextarea = document.getElementById('notesTextarea');
+            if (notesTextarea) {
+                localStorage.setItem(`notes_${currentSection}`, notesTextarea.value);
+            }
+        }
+
+        // إعداد معالجات الملفات
+        function setupFileHandlers() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadArea = document.querySelector('.upload-area');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const notesTextarea = document.getElementById('notesTextarea');
+            
+            if (!fileInput || !uploadArea) return;
+            
+            // حفظ الملاحظات تلقائياً
+            if (notesTextarea) {
+                notesTextarea.addEventListener('input', saveNotes);
+            }
+            
+            // معالجة اختيار الملفات
+            fileInput.addEventListener('change', handleFiles);
+            
+            // معالجة السحب والإفلات
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = Array.from(e.dataTransfer.files);
+                processFiles(files);
+            });
+            
+            function handleFiles(e) {
+                const files = Array.from(e.target.files);
+                processFiles(files);
+            }
+            
+            function processFiles(files) {
+                if (files.length === 0) return;
+                
+                progressBar.style.display = 'block';
+                let processed = 0;
+                
+                files.forEach((file, index) => {
+                    // فحص حجم الملف (10 ميجابايت)
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert(`الملف "${file.name}" كبير جداً. الحد الأقصى 10 ميجابايت.`);
+                        processed++;
+                        updateProgress();
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const fileData = {
+                            id: Date.now() + '_' + index,
+                            name: file.name,
+                            type: file.type,
+                            size: file.size,
+                            data: e.target.result,
+                            section: currentSection,
+                            uploadDate: new Date().toISOString()
+                        };
+                        
+                        uploadedFiles.push(fileData);
+                        localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+                        
+                        processed++;
+                        updateProgress();
+                        
+                        if (processed === files.length) {
+                            setTimeout(() => {
+                                progressBar.style.display = 'none';
+                                progressFill.style.width = '0%';
+                                displayFiles();
+                                fileInput.value = '';
+                            }, 500);
+                        }
+                    };
+                    
+                    reader.readAsDataURL(file);
+                });
+                
+                function updateProgress() {
+                    const percentage = (processed / files.length) * 100;
+                    progressFill.style.width = percentage + '%';
+                }
+            }
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            
+            // تحميل الملفات المحفوظة من localStorage
+            const savedFiles = localStorage.getItem('uploadedFiles');
+            if (savedFiles) {
+                uploadedFiles = JSON.parse(savedFiles);
+            }
+            
+            // مراقبة تغيير حجم القائمة
+            resizeObserver.observe(sidebar);
+            updateMainContentMargin();
+            
+            // تحميل البيانات المحفوظة
+            displayFiles();
+            loadNotes();
+            updateStorageInfo();
+        });
+
+        // وظائف إدارة التخزين المحسنة
+        function exportAllFiles() {
+            const data = {
+                files: uploadedFiles,
+                notes: getAllNotes(),
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `teacher_portfolio_backup_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('تم تصدير جميع البيانات بنجاح!');
+        }
+
+        function importFiles() {
+            const input = document.getElementById('importInput');
+            input.click();
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (data.files && Array.isArray(data.files)) {
+                        const confirmImport = confirm(`سيتم استيراد ${data.files.length} ملف. هل تريد المتابعة؟`);
+                        if (confirmImport) {
+                            uploadedFiles = [...uploadedFiles, ...data.files];
+                            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+                            
+                            if (data.notes) {
+                                Object.keys(data.notes).forEach(section => {
+                                    localStorage.setItem(`notes_${section}`, data.notes[section]);
+                                });
+                            }
+                            
+                            displayFiles();
+                            loadNotes();
+                            updateStorageInfo();
+                            alert('تم استيراد البيانات بنجاح!');
+                        }
+                    } else {
+                        alert('ملف غير صالح للاستيراد!');
+                    }
+                } catch (error) {
+                    alert('خطأ في قراءة الملف!');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function createBackup() {
+            const backupData = {
+                uploadedFiles: uploadedFiles,
+                notes: getAllNotes(),
+                backupDate: new Date().toISOString()
+            };
+            
+            localStorage.setItem('portfolio_backup', JSON.stringify(backupData));
+            alert('تم إنشاء نسخة احتياطية محلية بنجاح!');
+            updateStorageInfo();
+        }
+
+        function clearAllData() {
+            const confirmClear = confirm('هل أنت متأكد من حذف جميع البيانات؟ هذا الإجراء لا يمكن التراجع عنه!');
+            if (confirmClear) {
+                const doubleConfirm = confirm('تأكيد أخير: سيتم حذف جميع الملفات والملاحظات نهائياً!');
+                if (doubleConfirm) {
+                    localStorage.clear();
+                    uploadedFiles = [];
+                    displayFiles();
+                    loadNotes();
+                    updateStorageInfo();
+                    alert('تم حذف جميع البيانات!');
+                }
+            }
+        }
+
+        function getAllNotes() {
+            const notes = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('notes_')) {
+                    const section = key.replace('notes_', '');
+                    notes[section] = localStorage.getItem(key);
+                }
+            }
+            return notes;
+        }
+
+        function updateStorageInfo() {
+            const storageInfo = document.getElementById('storageInfo');
+            if (!storageInfo) return;
+            
+            const totalFiles = uploadedFiles.length;
+            const totalSize = uploadedFiles.reduce((sum, file) => sum + file.size, 0);
+            const storageUsed = JSON.stringify(uploadedFiles).length;
+            const maxStorage = 5 * 1024 * 1024; // 5MB تقريبي
+            const usagePercentage = (storageUsed / maxStorage) * 100;
+            
+            document.getElementById('fileCount').textContent = totalFiles;
+            document.getElementById('totalSize').textContent = formatFileSize(totalSize);
+            document.getElementById('storageUsed').textContent = formatFileSize(storageUsed);
+            document.getElementById('storageFill').style.width = Math.min(usagePercentage, 100) + '%';
+        }
+
+        // إغلاق النافذة المنبثقة عند النقر خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById('previewModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
+
